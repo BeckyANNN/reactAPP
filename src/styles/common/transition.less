@@ -1,0 +1,90 @@
+.example-enter {
+    opacity: 0.01;
+  }
+  
+  .example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  
+  .example-leave {
+    opacity: 1;
+  }
+  
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+
+
+  // .fadeIn{
+  //     transition:all 1.8s;
+  //     opacity: 1 !important;
+  // }
+
+    .fadeIn{
+      animation: fadeIn 1.5s both;
+  }
+
+  @keyframes fadeIn {
+    from{opacity: 0;height:0px}
+    to{opacity: 1;}    
+  }
+
+
+  .fade-enter{
+    opacity: 0;
+    height: 0;
+  }
+  .fade-enter.fade-enter-active{
+     opacity: 1;
+     height: 120px;
+     transition:all .5s ease;
+  }
+
+  .fade-leave{
+    opacity:1;
+    height: 120px;
+  }
+  .fade-leave.fade-leave-active{
+     opacity: 0;
+     height: 0;
+     transition:all .3s ease;
+  }
+
+
+  .fade-appear {
+    opacity: 0.01;
+  }
+  
+  .fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: all .5s ease-in;
+  }
+
+  .appear{
+    animation: appear .8s both;
+  }
+
+  @keyframes appear{
+    from{transform: translateX(-100%)}
+    to{transform: translateX(0)}
+  }
+
+
+  .enter{
+    animation: fadeInDown .8s 0s both ;
+  }
+
+  .leave{
+    animation: zoomOut .8s both;
+  }
+
+
+  @keyframes moveIn{
+    from{opacity: 0}
+    to{opacity: 1}
+  }
+.moveIn{
+  animation: moveIn .8s both;
+}

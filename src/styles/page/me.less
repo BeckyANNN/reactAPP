@@ -1,0 +1,165 @@
+
+.me{
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/images/loginbk.jpg) no-repeat center;
+    background-size: 100% 100%;
+    
+    position: relative;
+    i{
+        font-size: 60px;
+        padding-left: 40px;
+        
+        z-index: 2;
+    }
+   
+    .info{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        a{
+            display: block;
+            width: 188px;
+            height: 188px;
+            border-radius: 50%;
+            background: url(../../assets/images/touxiang1.png) no-repeat center;
+            background-size: 100%;
+            margin:0 auto;
+        }
+        p{
+            font-size: 42px;
+            color: white;
+            text-align: center;
+            margin-top: 30px;
+        }
+    }
+    .show{
+        i{
+            font-size: 60px;
+            padding-left: 40px;
+            line-height: 140px;
+            z-index: 2;
+        }
+        i:nth-of-type(2){
+            float: right;
+            padding-right: 40px;
+        }
+        .login-info{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 1080px;
+            background: url(../../assets/images/timg.jpg) no-repeat center;
+            border-bottom: 15px solid #eeeeee;
+            float: left;
+           .touxiang{
+               width: 28%;
+               margin: 50px auto;
+              
+                img{
+                    width: 188px;
+                    height: 188px;
+                    border-radius: 50%;
+                    margin: 0 auto;
+                }
+                p{
+                    color: white;
+                    margin-top: 30px;
+                    font-size: 42px;
+                    text-align: center;
+                }
+           }
+           a{
+               width: 420px;
+               height: 420px;
+               border-radius: 10px;
+               display: block;
+               background: url(../../assets/images/note.png) no-repeat center;
+               background-size: 100%;
+               margin: 60px auto;
+           }
+           
+        }
+        .list{
+            width: 100%;
+            position: absolute;
+            top: 1080px;
+            overflow: auto;
+            margin-bottom: 150px;
+            .list-main{
+                width: 100%;
+                border-bottom: 15px solid #eeeeee;
+                
+                overflow: hidden;
+                .item{
+                    width: 90%;
+                    margin: 0 auto;
+                    h2{
+                        font-size: 36px;
+                        margin-top: 42px;
+                        color: #333333;
+                        margin-bottom: 50px;
+                    }
+                    .dlist{
+                        float: left;
+                        padding: 0 50px;
+                        text-align: center;
+                        padding-bottom: 70px;
+                        i{
+                            font-size: 80px;
+                            padding-left: 0;
+                        }
+                        span{
+                            display: block;
+                            font-size: 30px;
+                            color: #666666;
+                        }
+                    }
+                }
+                .list-item{
+                    width: 90%;
+                    margin: 0 auto;
+                    height: 148px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .left{
+                        i{
+                            font-size: 80px;
+                            padding-right: 40px;
+                            color: #bebebe;
+                        }
+                        span{
+                            color: #666666;
+                            font-size: 38px;
+                        }
+                    }
+                    .right{
+                        i{
+                            font-size: 40px;
+                            color: #bebebe;
+                            padding-left: 40px;
+                        }
+                        span{
+                            color: #666666;
+                            font-size: 38px;
+                        }
+                    }
+                }
+            }
+        }
+       
+    }
+    
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}

@@ -1,0 +1,240 @@
+.detail{
+    width: 100%;
+    height: 100%;
+    header{
+        width: 100%;
+        height: 144px;
+        line-height: 144px;
+        border: 1px solid #e6e6e6;
+        position: fixed;
+        top: 0;
+        background: white;
+        z-index: 2;
+        .header-main{
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h1{
+                font-size: 42px; 
+                text-align: center;
+                color: #333;
+                text-align: center;
+            }
+            i{
+                display: block;
+                font-size: 50px;
+            }
+            i:nth-of-type(2){
+                font-size: 76px;
+            }
+        }
+
+       
+    }
+    section{
+       /*  width: 90%;
+        margin: 0 auto;
+        margin-top: 144px; */
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 0;
+        bottom: 150px;
+        overflow: auto;
+        .title{
+            font-weight: 900;
+            margin:240px 0 130px;
+            font-size: 58px;
+            color: #333333;
+        }
+        .author{
+            font-size: 28px;
+            color: #333333;
+            margin-bottom: 130px;
+        }
+        .cont{
+            text-indent: 2em;
+            font-size: 36px;
+            line-height: 84px;
+            color: #333333;
+        }
+        .comment{
+            margin-top: 100px;
+            h2{
+                color: #414141;
+                font-size: 38px;
+                float: left;
+                border-bottom: 10px solid #000000;
+                margin-bottom: 100px;
+            }
+            .comment-main{
+                margin-top: 60px;
+                .comment-list{
+                    border-bottom: 1px solid #eaeaea;
+                    position: relative;
+                    .top{
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin: 46px 0;
+                        dl{
+                            dt{
+                                float: left;
+                                img{
+                                    width: 80px;
+                                    height: 80px;
+                                    border-radius: 50%;
+                                }
+                            }
+                            dd{
+                                float: left;
+                                margin-left: 20px;
+                                color: #b0b0b0;
+                                font-size: 32px;
+                            }
+                        }
+                        span{
+                            color: #808080;
+                        }
+                    }
+                    .center{
+                        margin-bottom: 150px;
+                        p{
+                            color: #333333;
+                            font-size: 34px;
+                        }
+                    }
+                    .bottom{
+                      
+                        position: absolute;
+                        right: 0;
+                        bottom: 32px;
+                        i:nth-of-type(1){
+                            font-size: 40px;
+                            
+                        }
+                        i:nth-of-type(2){
+                            font-size: 60px;
+                            margin-left: 20px;
+                        }
+                        span{
+                            margin-left: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+   .footer{
+      width: 100%;
+      height: 150px;
+      background: #fbfbfb;
+      position: fixed;
+      bottom: 0;
+       .foot-main{
+            width: 90%;
+            height: 150px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            input{
+                width: 384px;
+                height: 95px;
+                border: 2px solid #a6a6a6;
+                border-radius: 10px;
+                text-indent: 1em;
+            }
+            .icon{
+                width: 45%;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                padding:0 10px;
+                justify-content: space-between;
+                a{
+                    display: inline-block;
+                    
+                    sup{
+                        margin-left: 140px;
+                        font-size: 30px;
+                        color: #8a8a8a;
+                    }
+                }
+               
+                i:nth-of-type(1){
+                    font-size: 40px;
+                }
+                i:nth-of-type(2){
+                    font-size: 60px;
+                }
+            }
+            .before{
+                background: url(../../assets/images/zan.png) no-repeat center;
+                background-size: 25%;
+            }
+            .after{
+                background: url(../../assets/images/zan1.png) no-repeat center;
+                background-size: 25%;
+            }
+       }
+   }
+   
+}
+
+.pinglun{
+    width: 100%;
+    height: 100%;
+    background: rgba(128, 128, 128, 0.6);
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    .exit{
+        width: 100%;
+        height: 78%;
+        
+    }
+    .ping{
+        width: 100%;
+        height: 22%;
+        position: absolute;
+        bottom: 0;
+        background: rgba(255,255,255,1);
+
+        textarea{
+           width: 90%;
+           height: 260px;
+            margin-left: 5%;
+            margin-top: 30px;
+            font-size: 30px;
+            border: 0;
+        }
+        span{
+            color: #b3b3b3;
+            float: left;
+            margin-left: 5%;
+            margin-top: 10px;
+        }
+        button{
+            float: right;
+            margin-right: 5%;
+            width: 132px;
+            height: 82px;
+            border: 1px solid #ddd;
+            background: #ccc;
+            color: #292929;
+            outline: none;
+        }
+    }
+    .show{
+        display: block;
+    }
+    .hide{
+        display: none;
+    }
+   
+}
