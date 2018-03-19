@@ -55,7 +55,7 @@ export default class One extends Component {
 
 
     zan = (id, like, like_count, e) => {
-        const { dispatch, flag } = this.props;
+        const { dispatch} = this.props;
         var name = localStorage.getItem("name");
         like = !like;
         if (name) {
@@ -67,7 +67,7 @@ export default class One extends Component {
                 like_count--;
             }
             dispatch(get_update_detail(id));
-            dispatch(get_one_detail("/updateLike?id=" + id + "&like=" + like + "&name=" + name + "&like_count=" + like_count, dispatch));
+            dispatch(get_one_detail("/insertLike?id=" + id + "&like=" + like*1 + "&name=" + name + "&like_count=" + like_count, dispatch));
 
         } else {
             hashHistory.push('/login')
@@ -100,9 +100,9 @@ export default class One extends Component {
                                         <div className="left">{item1.post_date.split(" ")[0]}</div>
                                         <div className="right">
                                             <a href="javascript:void(0);" onClick={(e) => {
-                                                 this.zan(item1.id, item1.like_detail.like, item1.like_count, e) 
+                                                 this.zan(item1.id, item1.like_detail.username==name?item1.like_detail.like:0, item1.like_count*1, e) 
                                                 }
-                                            } className={item1.like_detail.like == "true"?"after":"before"}><sup>{item1.like_count}</sup></a>
+                                            } className={item1.like_detail.like&&item1.like_detail.username==name?"after":"before"}><sup>{item1.like_count}</sup></a>
                                             <i className="iconfont icon-tiaozhuandaomulu" onClick={() => { hashHistory.push("/share") }}></i>
                                         </div>
                                     </div>

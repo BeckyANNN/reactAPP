@@ -1,12 +1,18 @@
 import React,{Component} from "react"
 import {Link,hashHistory} from "react-router"
 import axios from "axios"
-axios.defaults.baseURL = "http://39.106.19.127:3000"
-/* axios.defaults.baseURL = "http://localhost:3000"; */
-import { Popconfirm, message,Button } from 'antd';
+import {connect} from "react-redux"
+
+/* axios.defaults.baseURL = "http://39.106.19.127:3000" */
+axios.defaults.baseURL = "http://localhost:3000";
+// import { Popconfirm, message,Button } from 'antd';
 
 import   "../../../utils/layer/mobile/layer.js"
+import {get_back} from "../../actions";
 
+@connect(
+    state=>state
+)
 export default class One extends Component{
     constructor(props){
         super(props);
@@ -114,15 +120,12 @@ export default class One extends Component{
       cancel(e) {
         message.error('Click on No');
       }
-    goback=()=>{
-        hashHistory.goBack();
-    }
     render(){  
-       
+       const {dispatch} = this.props;
         return(
             <div className="login">
                 <header>
-                    <i className="iconfont icon-fanhui" onClick={this.goback}></i>
+                    <i className="iconfont icon-fanhui" onClick={()=>{dispatch(get_back(dispatch))}}></i>
                     <h1>注册</h1>
                 </header>
                 <section>

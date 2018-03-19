@@ -1,13 +1,14 @@
 import React,{Component} from "react"
 import {Link} from "react-router"
 import {connect} from "react-redux"
+import { width } from "window-size";
 
 
 @connect(
     (state)=>({footList:state.footList})
 )
 export default class Foot extends Component{
-   
+    
     render(){
         return(
             <div className="foot">
@@ -21,6 +22,8 @@ export default class Foot extends Component{
                         )
                     })
                 }
+
+               
             </div>
         )
     }

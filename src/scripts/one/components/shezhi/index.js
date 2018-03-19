@@ -4,12 +4,23 @@ import {connect} from "react-redux"
 
 
 import none from "../../../../assets/images/none.png";
+import { get_exit } from "../../actions/index";
+import   "../../../utils/layer/mobile/layer.js";
+
+@connect(
+    // (state)=>({...state})
+    state=>state
+)
 export default class Shezhi extends Component{
-    exit=()=>{
-        localStorage.removeItem("name");
-        hashHistory.push('/me');
+    removeStorage=()=>{
+        layer.open({
+            content: '消除成功',
+            skin: 'msg',
+            time: 2 //2秒后自动关闭
+          });
     }
     render(){
+        const {dispatch} = this.props;
         return(
             <div className="shezhi">
                <header>
@@ -36,10 +47,9 @@ export default class Shezhi extends Component{
                            </div>
                        </div>
                        <div className="item">
-                           <div className="item-main">
+                           <div className="item-main" onClick={this.removeStorage}>
                                <p>清除缓存</p>
                                <i className="iconfont icon-gengduo"></i>
-                              
                            </div>
                        </div>
                    </div>
@@ -89,7 +99,7 @@ export default class Shezhi extends Component{
                        <h3></h3>
                        <div className="item">
                            <div className="item-main">
-                               <p onClick={this.exit}>退出登录</p>                           
+                               <p onClick={()=>{dispatch(get_exit(dispatch))}}>退出登录</p>                           
                            </div>
                        </div>
                       

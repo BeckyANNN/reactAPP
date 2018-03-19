@@ -3,9 +3,10 @@ import {connect} from "react-redux"
 import {Link,hashHistory} from "react-router"
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+
 import   "../../../utils/layer/mobile/layer.js"
 
-import {get_detail,get_comment_detail,get_one_item,get_one_detail,get_update_detail,get_one,get_insert_comment,get_insert_collection,find_one_collection} from "../../actions"
+import {get_detail,get_comment_detail,get_one_item,get_one_detail,get_update_detail,get_one,get_insert_comment,get_update_collection,get_insert_collection} from "../../actions"
 @connect(
     (state)=>({...state})
 )
@@ -24,7 +25,7 @@ export default class Detail extends Component{
         dispatch(get_detail("/oneDetail?id="+this.props.params.id,dispatch));
         dispatch(get_comment_detail("/detailInfo",dispatch));
         dispatch(get_one_item("/oneDetail?id="+this.props.params.id,dispatch));
-        dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
+        //dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
     }
     
     send=()=>{
@@ -35,13 +36,15 @@ export default class Detail extends Component{
         
     }
     msg=()=>{
-        
-        const {dispatch} = this.props;
+        const {dispatch,detailList} = this.props;
         var msg = this.refs.message.value;
         var username = localStorage.getItem("name");
-        dispatch(get_insert_comment("/insertDetail?content="+msg+"&name="+username,dispatch));
-        location.href=hashHistory.getCurrentLocation().pathname;
-
+        dispatch(get_insert_comment("/insertDetail?content="+msg+"&name="+username+"&id="+detailList.id,dispatch));
+        //location.href="/#"+hashHistory.getCurrentLocation().pathname;
+        dispatch(get_comment_detail("/detailInfo",dispatch));
+        this.setState({
+            flag:false
+        })
        
     } 
     exit=()=>{
@@ -58,38 +61,20 @@ export default class Detail extends Component{
             }
         })
     }
- 
-    zan = (id, like, like_count, e) => {
-        const { dispatch } = this.props;
-        var name = localStorage.getItem("name");
-        console.log(like);
-        like = (like=="true"?true:false);
-        console.log(like);
-        like = !like;
-        console.log(like);
-        if (name) {
-            if(like) {
-                e.target.className = "after";
-                like_count++;
-            }else{
-                e.target.className = "before";
-                like_count--;
-            }
-            dispatch(get_update_detail(id));
-            dispatch(get_one_detail("/updateLike?id=" + id + "&like=" + like + "&name=" + name + "&like_count=" + like_count, dispatch));
 
-        } else {
-            hashHistory.push('/login')
-        }
-    }
 
-    shoucang=(id,type,title)=>{
+    shoucang=(id,collection)=>{
         const {dispatch} = this.props;
         var name = localStorage.getItem("name");
+        collection = !collection;
         if(name){
-            
-            this.refs.shoucang.style.color = "red";
-            dispatch(get_insert_collection("/insertCollection?id="+id+"&username="+name+"&type="+type+"&title="+title,dispatch));
+            if(collection*1){
+                this.refs.shoucang.style.color = "red";
+            }else{
+                this.refs.shoucang.style.color = "black";
+            }
+            dispatch(get_update_collection(id));
+            dispatch(get_insert_collection("/updateCollection?id="+id+"&name="+name+"&collection="+collection*1,dispatch));
         }else{
             hashHistory.push('/login')
         }
@@ -105,46 +90,27 @@ export default class Detail extends Component{
       }
 
     render(){
-         const {detailList,commentList,oneItem,one ,userCollection} = this.props;
-         const {name} = this.state;
+        const {detailList,commentList,one } = this.props;
+        const {name} = this.state;
         var head = null;
         var content = null;
         var title = null;
         var author = null;
         var comment = null;
-        var zan =  null;
-        var pinglun = null;
+        //var pinglun = null;
         var shoucang = null;
-       
-       if(detailList){
+        if(detailList){
             head=detailList.share_list.wx.title.split("|")[0]?detailList.share_list.wx.title.split("|")[0]:"ONE STORY"
             content=detailList.content;
             title=detailList.title;
             author=detailList.share_list.wx.desc.split(" ")[0];
+            shoucang = <i className="iconfont icon-biaoqian" 
+                        style={{color:detailList.like_detail.collection&&detailList.like_detail.username==name?'red':''}}
+                        onClick={()=>{this.shoucang(detailList.id,detailList.like_detail.collection)}} 
+                        ref="shoucang"></i>
         }
       
-         if(oneItem){
-             
-           
-            if(userCollection){
-                shoucang = <i className="iconfont icon-biaoqian" onClick={()=>{this.shoucang(oneItem.id,oneItem.share_list.wx.title.split("|")[0]?oneItem.share_list.wx.title.split("|")[0]:"阅读",oneItem.title?oneItem.title:"ONE　SROTY")}} ref="shoucang"></i>
-                for(var i in userCollection){ 
-                    if(userCollection[i].id==oneItem.id){
-                        shoucang = <i className="iconfont icon-biaoqian" onClick={()=>{this.shoucang(oneItem.id,oneItem.share_list.wx.title.split("|")[0]?oneItem.share_list.wx.title.split("|")[0]:"阅读",oneItem.title?oneItem.title:"ONE　SROTY")}} ref="shoucang" style={{color:"red"}}></i>
-                    }
-                }
-            }
-            
-            if(oneItem.like_detail){
-               console.log(oneItem);
-               console.log(typeof oneItem.like_detail.like);
-               console.log(oneItem.like_detail.like=="true"?true:false);
-                zan=<a href="javascript:void(0);" onClick={(e)=>{this.zan(oneItem.id,oneItem.like_detail.like,oneItem.like_count,e)}}  className={(oneItem.like_detail.like=='true')?"after":"before"}><sup>{oneItem.like_count}</sup></a>
-                
-            }
-           
-            
-        }
+
         comment = (
             <div className="comment-main">
                 {
@@ -163,7 +129,6 @@ export default class Detail extends Component{
                                 </div>
                                 <div className="bottom">
                                     <i className="iconfont icon-pinglun"></i>
-                                    <i className="iconfont icon-dianzan1"></i>
                                     <span>{item.praisenum}</span>
                                 </div>
                             </div>
@@ -199,8 +164,7 @@ export default class Detail extends Component{
                     <div className="foot-main">
                         <input type="text" placeholder="写一个评论..." onClick={this.send}/>
                         <div className="icon">
-                            {zan}
-                            <i className="iconfont icon-pinglun" onClick={()=>this.scrollToAnchor("comment")}><sup>5</sup></i>
+                            <i className="iconfont icon-pinglun" onClick={()=>this.scrollToAnchor("comment")}><sup>{commentList.length}</sup></i>
                             <i className="iconfont icon-tiaozhuandaomulu" onClick={()=>{hashHistory.push("/share")}}></i>
                         </div>
                     </div>

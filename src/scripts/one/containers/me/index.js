@@ -12,15 +12,7 @@ export default class Me extends Component{
             
         }
     }
-   /*  change=()=>{
-        var name = localStorage.getItem("name");
-        if(localStorage.getItem(name)){
-            //location.href = '/article/文章'
-            hashHistory.push('/article/文章');
-        }else{
-            hashHistory.push('/xiaoxi/文章')
-        }
-    } */
+   
     render(){
         return(
             <div className="me" ref="me">
@@ -98,8 +90,7 @@ export default class Me extends Component{
                 </div>
                 <Foot/>
             </div>
-            
-       
+
         )
     }
 }

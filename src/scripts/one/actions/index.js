@@ -1,6 +1,9 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://39.106.19.127:3000";
-/* axios.defaults.baseURL = "http://localhost:3000"; */
+import {hashHistory} from "react-router"
+import {connect} from "react-redux"
+
+/* axios.defaults.baseURL = "http://39.106.19.127:3000"; */
+axios.defaults.baseURL = "http://localhost:3000";
 export function get_one(url,dispatch){
     return axios.get(url)
         .then(res=>{
@@ -10,7 +13,27 @@ export function get_one(url,dispatch){
             return dispatch({type:"get_one_success",json})
         })
 }
+//返回
+export function get_back(dispatch){
+    return dispatch({type:"get_back",hashHistory})
+}
+//退出登录
+export function get_exit(dispatch){
+    return dispatch({type:"get_exit",hashHistory})
+}
 
+//插入点赞
+export function insert_like(url,dispatch){
+    
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+
+        })
+        .then(json=>{
+            return dispatch({type:"insert_like",json})
+        })
+}
 export function get_banner(url,dispatch){
     return axios.get(url)
         .then(res=>{
@@ -31,13 +54,14 @@ export function get_all(url,dispatch){
         })
 }
 
+//根据id获取文章详情
 export function get_detail(url,dispatch){
     return axios.get(url)
         .then(res=>{
             return res.data;
         })
         .then(json=>{
-            return dispatch({type:"get_detail_success",json})
+            return dispatch({type:"get_detail",json})
         })
 }
 
@@ -64,10 +88,14 @@ export function get_insert_detail(url,dispatch){
 
 
 
-
+//更新点赞状态
 export function get_update_detail(id,dispatch){
     return {type:"get_update_detail",id}
 
+}
+//更新收藏状态
+export function get_update_collection(id,dispatch){
+    return {type:"get_update_collection",id}
 }
 
 export function get_one_detail(url,dispatch){
@@ -153,3 +181,51 @@ export function find_one_collection(url,dispatch){
             return dispatch({type:"find_one_collection",json})
         })
 }
+
+//插入点赞
+/* export function insert_like(url,dispatch){
+    
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+
+        })
+        .then(json=>{
+            return dispatch({type:"insert_like",json})
+        })
+} */
+//更新点赞
+export function update_like(url,dispatch){
+    
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+
+        })
+        .then(json=>{
+            return dispatch({type:"update_like",json})
+        })
+} 
+//根据id查询用户是否点赞
+export function find_like(url,dispatch){
+    
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+        })
+        .then(json=>{
+            return dispatch({type:"find_like",json})
+        })
+}
+//查询所有点赞信息
+export function find_all_like(url,dispatch){
+    
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+
+        })
+        .then(json=>{
+            return dispatch({type:"find_all_like",json})
+        })
+    }

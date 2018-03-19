@@ -2,7 +2,10 @@ import React,{Component} from "react"
 import {Link,hashHistory} from "react-router"
 import {connect} from "react-redux"
 
-import {find_one_collection} from "../../actions";
+import {get_one} from "../../actions";
+
+import {Tabs} from "antd";
+const TabPane = Tabs.TabPane;
 
 import none from "../../../../assets/images/none.png";
 @connect(
@@ -15,65 +18,24 @@ export default class Article extends Component{
    componentWillMount(){
        const {dispatch} = this.props;
        var name = localStorage.getItem("name"); 
-       dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
+       //dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
+       dispatch(get_one("/one",dispatch));
    }
-   change=(e)=>{
-       var active = document.querySelectorAll(".active");
-       for(var i=0; i<active.length; i++){
-           active[i].className = "";
-       }
-       e.target.className = "active";
-       this.refs.read.style.display = "block";
-       this.refs.change.style.display = "none";
-       this.refs.lianzai.style.display = "none";
-       this.refs.wenda.style.display = "none";
-       
-   }
-   lianzai=(e)=>{
-        var active = document.querySelectorAll(".active");
-        for(var i=0; i<active.length; i++){
-            active[i].className = "";
-        }
-        e.target.className = "active";
-        this.refs.read.style.display = "none";
-        this.refs.wenda.style.display = "none";
-        if(this.props.userCollection){
-            this.refs.lianzai.style.display = "block";
-        }else{
-            this.refs.change.style.display = "block";
-        }
-        
-       
-   }
-   wenda=(e)=>{
-    var active = document.querySelectorAll(".active");
-    for(var i=0; i<active.length; i++){
-        active[i].className = "";
-    }
-    e.target.className = "active";
-    this.refs.read.style.display = "none";
-    this.refs.change.style.display = "block";
-    this.refs.lianzai.style.display = "none";
-    if(this.props.userCollection){
-        this.refs.wenda.style.display = "block";
-    }else{
-        this.refs.change.style.display = "block";
-    }
-   } 
+
 
    
     render(){
-        const {userCollection} = this.props;
+        const {one} = this.props;
         var read = null;
         var lianzai = null;
         var wenda = null;
-        if(userCollection){
-            console.log(userCollection);
+        var none = <img src={none}/>;
+        if(one.length>0){
             read=(
-                <div className="read" ref="read">
+                <div className="read">
                     {
-                        userCollection.map((item,i)=>{
-                            if(item.type=="阅读"||item.type=="阅读 "){
+                        one.map((item,i)=>{
+                            if(item.type=="阅读" && item.like_detail.collection){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
@@ -91,10 +53,10 @@ export default class Article extends Component{
                 </div>
             );
             lianzai=(
-                <div className="read" ref="lianzai" style={{display:'none'}}>
+                <div className="read" style={{display:'none'}}>
                     {
-                        userCollection.map((item,i)=>{
-                            if(item.type=="连载"||item.type=="连载 "){
+                        one.map((item,i)=>{
+                            if(item.type=="连载" && item.like_detail.collection){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
@@ -112,10 +74,10 @@ export default class Article extends Component{
                 </div>
             );
             wenda=(
-                <div className="read" ref="wenda" style={{display:'none'}}>
+                <div className="read" style={{display:'none'}}>
                     {
-                        userCollection.map((item,i)=>{
-                            if(item.type=="问答"||item.type=="问答 "){
+                        one.map((item,i)=>{
+                            if(item.type=="问答" && item.like_detail.collection){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
@@ -123,7 +85,7 @@ export default class Article extends Component{
                                         <p>{item.title}</p>
                                     </div>
                                     <Link to={"/detail/"+item.id}>
-                                    <i className="iconfont icon-gengduo"></i>
+                                     <i className="iconfont icon-gengduo"></i>
                                     </Link>
                                 </div>
                                 )
@@ -143,17 +105,13 @@ export default class Article extends Component{
                    </div>
                </header>
                <section>
-                   <div className="nav">
-                        <a href="javascript:void(0);" className="active" onClick={this.change}>阅读</a>
-                        <a href="javascript:void(0);" onClick={this.lianzai}>连载</a>
-                        <a href="javascript:void(0);" onClick={this.wenda}>问答</a>
-                   </div>
-                   {read}
-                   {lianzai}
-                   {wenda}
-                    <div className="change" ref="change">
-                        <img src={none}/>
-                    </div>
+                   <Tabs defaultActiveKey="1">
+                        <TabPane tab="阅读" key="1">{read}</TabPane>
+                        <TabPane tab="连载" key="2">{lianzai}</TabPane>
+                        <TabPane tab="问答" key="3"> {wenda}</TabPane>
+                    </Tabs>
+
+                   
                </section>
             </div>
         )

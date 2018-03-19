@@ -1,11 +1,11 @@
 import React,{Component} from "react"
 import {Link,hashHistory} from "react-router"
-import {connect} from "react-redux"
 
 
 export default class Search extends Component{
    
     render(){
+        const {dispatch} = this.props;
         return(
             <div className="message">
                <header>

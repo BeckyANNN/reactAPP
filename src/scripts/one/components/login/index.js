@@ -3,14 +3,14 @@ import {Link,hashHistory} from "react-router"
 import   "../../../utils/layer/mobile/layer.js"
 import axios from "axios"
 import {connect} from "react-redux"
+import {Alert} from "antd"
+//import {get_insert_detail} from "../../actions";
 
-import {get_insert_detail} from "../../actions";
-
-
-axios.defaults.baseURL = "http://39.106.19.127:3000"
-/* axios.defaults.baseURL = "http://localhost:3000"; */
+import {get_back} from "../../actions";
+/* axios.defaults.baseURL = "http://39.106.19.127:3000" */
+axios.defaults.baseURL = "http://localhost:3000";
 @connect(
-    (state)=>({...state})
+    state=>state
 )
 export default class One extends Component{
     constructor(props){
@@ -23,19 +23,9 @@ export default class One extends Component{
         }
     }
 
-    componentWillMount(){
-        const {dispatch} = this.props;
-        dispatch(get_insert_detail("/detailInfo",dispatch));
-    }
     
     submit=()=>{
-        axios.post("/insertDetail",{
-            phone:this.state.name
-        }).then(res=>{
-           
-        })
-
-
+      
         axios.post("/findUser",{
             phone:this.state.name
         }).then(res=>{
@@ -53,9 +43,7 @@ export default class One extends Component{
         })
     }
    
-    goback=()=>{
-        hashHistory.goBack();
-    }
+ 
 
     change=()=>{
         var telreg=/^1[34578]\d{9}$/;
@@ -78,11 +66,11 @@ export default class One extends Component{
     }
 
     render(){
-
+        const {dispatch} = this.props;
         return(
             <div className="login">
                 <header>
-                    <i className="iconfont icon-fanhui" onClick={this.goback}></i>
+                    <i className="iconfont icon-fanhui" onClick={()=>{dispatch(get_back(dispatch))}}></i>
                     <h1>登录</h1>
                 </header>
                 <section>
