@@ -2,7 +2,7 @@ import React,{Component} from "react"
 
 import {connect} from "react-redux"
 
-import {hashHistory} from "react-router"
+import {hashHistory,Link} from "react-router"
 import {get_banner,get_all} from "../../actions"
 
 import { Carousel } from 'antd';
@@ -46,14 +46,15 @@ export default class All extends Component{
             itemlist=(
                <div>
                     {
-
                         list.map((item1,idx)=>{
                             return (
                                 <div className="list-main" key={idx}>
-                                <dl>
-                                    <dt><img src={item1.cover}/></dt>
-                                    <dd><p>{item1.title}</p></dd>
-                                </dl>
+                                    <Link to={"subject/"+item1.content_id}>
+                                        <dl>
+                                            <dt><img src={item1.cover}/></dt>
+                                            <dd><p>{item1.title}</p></dd>
+                                        </dl>
+                                    </Link>
                                 </div>
                             )
                         })
@@ -73,7 +74,7 @@ export default class All extends Component{
                        <div className="nav-main">
                         <h2>分类导航</h2>
                             <div className="pic">
-                                <img src={pic1}/>
+                                <Link to="info"><img src={pic1}/></Link>
                                 <img src={pic2}/>
                                 <img src={pic7}/>
                                 <img src={pic3}/>

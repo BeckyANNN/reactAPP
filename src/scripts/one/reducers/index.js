@@ -18,8 +18,11 @@ var initState = {
     likeInfo:"",
     likeAll:[],
     like:null,
-    id:null
-    
+    id:null,
+
+    oneStoryDate:[],
+    coverList:[],
+    allList:[]
 }
 export default (state=initState,action)=>{
     switch(action.type){
@@ -36,9 +39,24 @@ export default (state=initState,action)=>{
 
         //退出登录
         case "get_exit":
-        localStorage.removeItem("name");
+        localStorage.clear();
         action.hashHistory.push("/me");
         return Object.assign({},state);
+
+        case "get_date_oneStory":
+            state.oneStoryDate = action.json;
+            return Object.assign({},state);
+        break;
+
+        case "get_cover":
+            state.coverList = action.json;
+            return Object.assign({},state);
+        break;
+
+        //插入、更新点赞
+        case "get_exit":
+        return Object.assign({},state);
+        break;
 
         //插入、更新点赞
         case "insert_like":
@@ -88,18 +106,20 @@ export default (state=initState,action)=>{
            }
            return item;
         })
+        console.log(state.one)
         return Object.assign({},state);
         break;
 
         //更新收藏状态
         case "get_update_collection":
-        state.one = state.one.map((item,id)=>{
-           if(action.id==item.id){ 
+        state.oneItem = state.oneItem.map((item,id)=>{
+           if(action.name==item.like_detail.username){ 
                item.like_detail.collection = (!item.like_detail.collection)*1;
-               state.detailList = item;
+            //    state.detailList = item;
            }
            return item;
         })
+        console.log(state.oneItem)
         return Object.assign({},state);
         break;
 
@@ -112,16 +132,7 @@ export default (state=initState,action)=>{
 
         //获取评论列表
         case "get_comment_detail":
-        state.commentList = [];
-        action.json.map((item,index)=>{
-            if(state.detailList){
-                if(item['articleId']==state.detailList['id']){
-                    if(state.commentList.indexOf(item)==-1){
-                        state.commentList.push(item);
-                    }
-                }
-            }
-        })
+        state.commentList = action.json;
         return Object.assign({},state);
         break;
 
@@ -141,9 +152,8 @@ export default (state=initState,action)=>{
         return Object.assign({},state);
         break;
 
-        //插入评论
+        //插入收藏
         case "get_insert_collection":
-        console.log(action.json);
         return Object.assign({},state);
         break;
 
@@ -175,6 +185,11 @@ export default (state=initState,action)=>{
         state.likeAll = action.json;
         
         return Object.assign({},state);
+        break;
+
+        case "get_all_detail":
+            state.allList = action.json;
+            return Object.assign({},state);
         break;
 
         default:

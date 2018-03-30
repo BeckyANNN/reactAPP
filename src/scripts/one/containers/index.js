@@ -17,7 +17,7 @@ import Message from "../components/message"
 import Xiaoxi from "../components/xiaoxi"
 import Shezhi from "../components/shezhi"
 import Article from "../components/article"
-
+import Subject from "./subject"
 export default class Layout extends Component{
     render(){
         return(
@@ -32,6 +32,7 @@ export default class Layout extends Component{
                     <Route path="register" component={Register}/>
                     <Route path="forgetpwd" component={Forgetpwd}/>
                     <Route path="detail/:id" component={Detail}/>
+                    <Route path="subject/:id" component={Subject}/>
                     <Route path="share" component={Share}/>
                     <Route path="search" component={Search}/>
                     <Route path="message" component={Message}/>

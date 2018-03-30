@@ -26,9 +26,7 @@ export default class One extends Component{
     
     submit=()=>{
       
-        axios.post("/findUser",{
-            phone:this.state.name
-        }).then(res=>{
+        axios.get("/findUser?phone="+this.state.name).then(res=>{
             if(this.state.pwd==res.data.pwd){
                 localStorage.setItem("name",this.state.name);
                 hashHistory.push("/one");

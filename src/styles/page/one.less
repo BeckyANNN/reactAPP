@@ -12,22 +12,50 @@
         text-align: center;
         font-size: 42px; 
         position: fixed;
+        z-index: 999;
         p{
-            color: #333333; 
-            letter-spacing: 10px;
-            span{
-                margin: 0 30px;
-                color: #a6a6a6;
+            position:relative;
+            font-family:"Times New Roman",Georgia,Serif;
+            float: left;
+            color: #000; 
+            //letter-spacing: 10px;
+            span:first-of-type{
+                font-size: 80px;
             }
+            span{
+                margin: 0 14px;
+                color: #000;
+            }
+            img{
+                width: 38px;
+                position: absolute;
+                right: -16%;
+                top: 40%;
+                transform:rotateZ(45deg);
+                transition: all 1s;
+            }
+            .rotateZ{
+                transform: rotateZ(-45deg);
+                transition: all 1s;
+            }
+            
+        }
+        .weather{
+            float: right;
+            margin: 0 14px;
+            color: #666;
+            font-size: 36px;
         }
     }
     .main{
         width: 100%;
         height: 100%;
         margin-top: 145px;
-        .img{
-            height: 1176px;
-            background: url(../../assets/images/p1.jpg) no-repeat center;
+        position: relative;
+        img{
+            width: 100%;
+            height: 100%;
+            //background: url(../../assets/images/p1.jpg) no-repeat center;
         }
         span{
             display: block;
@@ -38,9 +66,9 @@
         }
         p{
             width: 80%;
-            font-size: 36ox;
+            font-size: 38px;
             color: #333333;
-            margin: 20px auto;
+            margin: 60px auto;
             line-height: 78px;
             letter-spacing: 2px;
         }
@@ -72,6 +100,32 @@
                 }
             }
         }
+        .cover{
+            display: none;
+            width: 100%;
+            position: absolute;
+            top: 0%;
+            padding: 5%;
+            background: white;
+            dl{
+                width: 48%;
+                float: left;
+                margin-bottom: 30px;
+                border: 1px solid rgb(170, 167, 167);
+                dd{
+                    font-size: 50px;
+                    text-align: center;
+                    padding: 30px;
+                }
+            }
+            dl:nth-of-type(odd){
+                margin-right: 4%;
+            }
+        }
+       /*  .coverChange{
+            opacity: 1;
+            transition: all 2s;
+        } */
         .bottom{
             border-top: 15px solid #eeeeee;
             border-bottom: 15px solid #eeeeee;
@@ -85,9 +139,14 @@
             }
             .rotate:before{
                 display: inline-block;
-                transform: rotateZ(180deg);
+                transform: rotateZ(-180deg);
+                transition: all 1s;
             }
-           
+            .backRotate:before{
+                display: inline-block;
+                transform: rotateZ(0deg);
+                transition: all 1s;
+            }
             .hide,.show{
                 width: 90%;
                 margin: 0 auto;
@@ -114,6 +173,9 @@
                             font-size: 34px;
                             float: left;
                             margin-top: -20px;
+                            overflow:hidden;
+                            text-overflow:ellipsis;
+                            white-space:nowrap
                         }
                     }
                 }
@@ -159,13 +221,14 @@
                 float: left;
                 font-size: 32px;
                 color: #a6a6a6;
+                margin-bottom: 20px;
             }
             .right{
                 float: right;
                 i{
                     font-size: 60px;
                     color: #8a8a8a;
-                    margin-left: 20px;
+                    margin-left: 35px;
                     sup{
                         font-size: 30px;
                         color: #8a8a8a;
@@ -174,20 +237,20 @@
                 a{
                     display: inline-block;
                     background: url(../../assets/images/zan.png) no-repeat center;
-                    background-size: 90%;
+                    background-size: 35%;
                     sup{
-                        margin-left: 140px;
+                        margin-left: 120px;
                         color: #8a8a8a;
                         
                     }
                 }
                 .before{
                     background: url(../../assets/images/zan.png) no-repeat center;
-                    background-size: 25%;
+                    background-size: 35%;
                 }
                 .after{
                     background: url(../../assets/images/zan1.png) no-repeat center;
-                    background-size: 25%;
+                    background-size: 35%;
                 }
             }
         }

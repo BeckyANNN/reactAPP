@@ -6,28 +6,24 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import   "../../../utils/layer/mobile/layer.js"
 
-//import {get_detail,get_comment_detail,get_one_item,get_one_detail,get_update_detail,get_one,get_insert_comment,get_update_collection,get_insert_collection} from "../../actions"
-import {get_detail,get_comment_detail,get_insert_comment,get_one_item,get_update_collection,get_insert_collection} from "../../actions";
+import {get_all_detail,get_comment_detail,get_all,get_insert_comment} from "../../actions";
 @connect(
     (state)=>({...state})
 )
-export default class Detail extends Component{
+export default class Subject extends Component{
     constructor(props){
         super(props);
         this.state={
-            flag:false,
             name:localStorage.getItem("name"),
+            flag:false
         }
     }
     componentWillMount(){
         const {dispatch} = this.props;
-        var name = localStorage.getItem("name");
-        dispatch(get_detail("/getDetail?id="+this.props.params.id,dispatch));
         dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
-        dispatch(get_one_item("/oneDetail?id="+this.props.params.id+"&name="+name,dispatch));
-        //dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
+        dispatch(get_all_detail("/allInfo?id="+this.props.params.id,dispatch));
+        dispatch(get_all("/all",dispatch));
     }
-    //获取文章类型
     getArtType=(type)=>{
         switch(type){
             case 1:
@@ -45,21 +41,16 @@ export default class Detail extends Component{
             case 5:
                 return "影视";
                 break;
+            case 11:
+                return "专题";
+                break;
             default:
                 return "电台";
                 break;
         }
     }
-    send=()=>{
-        this.setState({
-            flag:true
-        })
-
-        
-    }
-    
-    //获取当前时间
-    getNow=()=>{
+   //获取当前时间
+   getNow=()=>{
         var date = new Date();
         var h = date.getFullYear();
         var m = date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1;
@@ -69,13 +60,23 @@ export default class Detail extends Component{
         var s = date.getSeconds()<10?"0"+date.getSeconds():date.getSeconds();
         return h+"-"+m+"-"+d+" "+H+":"+M+":"+s;
     }
+    send=()=>{
+        var username = localStorage.getItem("name");
+        if(username){
+            this.setState({
+                flag:true
+            })
+        }else{
+            hashHistory.push('/login')            
+        }
+    }
     msg=()=>{
         const {dispatch,detailList} = this.props;
         var msg = this.refs.message.value;
         var username = localStorage.getItem("name");
         if(msg.length<=500){
             dispatch(get_insert_comment("/insertDetail?content="+msg+"&name="+username+"&id="+this.props.params.id+"&inputDate="+this.getNow()+"&updateDate="+this.getNow(),dispatch));
-            dispatch(get_detail("/getDetail?id="+this.props.params.id,dispatch)); 
+            dispatch(get_all_detail("/allInfo?id="+this.props.params.id,dispatch));
             dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
             location.reload(true)
             layer.open({
@@ -106,41 +107,19 @@ export default class Detail extends Component{
        
     } 
     exit=()=>{
-       var that = this;
-        layer.open({
-            content:' 是否放弃当前评论',
-            style:'background-color:#424242;color:white;font-size:48px;',
-            btn:['取消','放弃'],
-            style:'color:green',
-            no:function(){
-                that.setState({
-                    flag:false
-                })
-            }
-        })
-    }
-
-
-    shoucang=(collection)=>{
-        const {dispatch} = this.props;
-        var name = localStorage.getItem("name");
-        console.log(collection)
-        collection = !collection;
-        console.log(collection)
-        if(name){
-            if(Number(collection)){
-                this.refs.shoucang.style.color = "red";
-            }else{
-                this.refs.shoucang.style.color = "black";
-            }
-            dispatch(get_update_collection(name));
-            dispatch(get_insert_collection("/updateCollection?id="+this.props.params.id+"&name="+name+"&collection="+Number(collection)*1,dispatch));
-            dispatch(get_one_item("/oneDetail?id="+this.props.params.id+"&name="+name,dispatch));
-        }else{
-            hashHistory.push('/login')
-        }
-       
-    }
+        var that = this;
+         layer.open({
+             content:' 是否放弃当前评论',
+             style:'background-color:#424242;color:white;font-size:48px;',
+             btn:['取消','放弃'],
+             style:'color:green',
+             no:function(){
+                 that.setState({
+                     flag:false
+                 })
+             }
+         })
+     }
     //锚点设置
     scrollToAnchor = (anchorName) => {
         
@@ -149,37 +128,48 @@ export default class Detail extends Component{
             if(anchorElement) { anchorElement.scrollIntoView(); }
         }
       }
-
     render(){
-        const {detailList,commentList,oneItem } = this.props;
-        const {name} = this.state;
-        console.log(oneItem);
-        var head = null;
+        const {allList,commentList,list } = this.props;
         var content = null;
-        var title = null;
-        var author = null;
         var comment = null;
-        //var pinglun = null;
-        var shoucang = null;
-         if(detailList){
-            head=this.getArtType(detailList[0].category);
-            if(this.refs.cont){
-                this.refs.cont.innerHTML = detailList[0].html_content;       
-            } 
-                
-            /* shoucang = <i className="iconfont icon-biaoqian" 
-                        style={{color:detailList[0].like_detail.collection||''}}
-                        onClick={()=>{this.shoucang(detailList[0].id,detailList[0].like_detail.collection)}} 
-                        ref="shoucang"></i> */
-        } 
-        if(oneItem.length>0){
-            shoucang = <i className="iconfont icon-biaoqian" 
-            style={{color:oneItem[0].like_detail.collection?"red":""}}
-            onClick={()=>{this.shoucang(oneItem[0].like_detail.collection)}} 
-            ref="shoucang"></i>
-            
-        }
-        //评论
+        var cont = null;
+        var html = null;
+        
+         if(list.length>0){
+            list.map((item,index)=>{
+               if(item.content_id==this.props.params.id){
+                    cont = <div className="cont">
+                                <img src={item.cover}/>
+                                <h2>{item.title}</h2>
+                                <p>{item.subtitle}</p>
+                            </div>
+                   
+               }
+           })
+         } 
+         if(allList.length>0){
+             html =  <div className="main">
+                {
+                    allList.map((item,index)=>{
+                        if(item.id==this.props.params.id){
+                            return(
+                                <dl key={index}>
+                                    <dt><img src={item.link}/></dt>
+                                    <dd>
+                                        <h2>{item.title}</h2>
+                                        <p>{item.subtitle}</p>
+                                    </dd>
+                                </dl>
+                            )
+                            
+                                    
+                        }
+             })
+                }
+            </div>
+             
+         }
+         
         comment = (
             <div className="comment-main">
                 {
@@ -205,22 +195,21 @@ export default class Detail extends Component{
                     })
                 }
             </div>
-        )
+        ) 
         
         
         
         return(
-            <div className="detail">
+            <div className="subject">
                 <header>
                     <div className="header-main">
                         <i className="iconfont icon-fanhui" onClick={()=>{this.props.router.goBack()}}></i>
-                        <h1>{head}</h1>
-                        {shoucang}
+                        <h1>专题</h1>
                     </div>
                 </header>
                 <section>
-                    <div className="title">{title}</div>
-                    <div className="cont" ref="cont"></div>
+                    {cont}
+                    {html}
                     <div className="comment" id="comment">
                         <h2>评论列表</h2>
                         <br/>

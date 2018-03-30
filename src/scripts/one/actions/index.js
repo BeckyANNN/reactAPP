@@ -22,6 +22,27 @@ export function get_exit(dispatch){
     return dispatch({type:"get_exit",hashHistory})
 }
 
+
+//根据时间获取oneStory
+export function get_date_oneStory(url,dispatch){
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+        })
+        .then(json=>{
+            return dispatch({type:"get_date_oneStory",json})
+        })
+}
+//查询cover表
+export function get_cover(url,dispatch){
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+        })
+        .then(json=>{
+            return dispatch({type:"get_cover",json})
+        })
+}
 //插入点赞
 export function insert_like(url,dispatch){
     
@@ -55,6 +76,16 @@ export function get_all(url,dispatch){
 }
 
 //根据id获取文章详情
+/* export function get_detail(url,dispatch){
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+        })
+        .then(json=>{
+            return dispatch({type:"get_detail",json})
+        })
+} */
+//获取详细信息
 export function get_detail(url,dispatch){
     return axios.get(url)
         .then(res=>{
@@ -126,6 +157,16 @@ export function get_one_item(url,dispatch){
         })
         .then(json=>{
             return dispatch({type:"get_one_item",json})
+        })
+}
+//根据id查询all页面的详细信息
+export function get_all_detail(url,dispatch){
+    return axios.get(url)
+        .then(res=>{
+            return res.data;
+        })
+        .then(json=>{
+            return dispatch({type:"get_all_detail",json})
         })
 }
 
