@@ -213,7 +213,7 @@ export default class Detail extends Component{
             <div className="detail">
                 <header>
                     <div className="header-main">
-                        <i className="iconfont icon-fanhui" onClick={()=>{this.props.router.goBack()}}></i>
+                        <i className="iconfont icon-fanhui" onClick={()=>{hashHistory.go(-1)}}></i>
                         <h1>{head}</h1>
                         {shoucang}
                     </div>

@@ -7,8 +7,8 @@ import {Alert} from "antd"
 //import {get_insert_detail} from "../../actions";
 
 import {get_back} from "../../actions";
-/* axios.defaults.baseURL = "http://39.106.19.127:3000" */
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://39.106.19.127:3000"
+// axios.defaults.baseURL = "http://localhost:3000";
 @connect(
     state=>state
 )
@@ -29,6 +29,7 @@ export default class One extends Component{
         axios.get("/findUser?phone="+this.state.name).then(res=>{
             if(this.state.pwd==res.data.pwd){
                 localStorage.setItem("name",this.state.name);
+                localStorage.setItem("img",res.data.img)
                 hashHistory.push("/one");
                
             }else{

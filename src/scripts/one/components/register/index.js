@@ -3,8 +3,8 @@ import {Link,hashHistory} from "react-router"
 import axios from "axios"
 import {connect} from "react-redux"
 
-/* axios.defaults.baseURL = "http://39.106.19.127:3000" */
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://39.106.19.127:3000"
+// axios.defaults.baseURL = "http://localhost:3000";
 // import { Popconfirm, message,Button } from 'antd';
 
 import   "../../../utils/layer/mobile/layer.js"

@@ -1,7 +1,8 @@
 import React,{Component} from "react"
 import {Link,hashHistory} from "react-router";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://39.106.19.127:3000";
 export default class Forgetpwd extends Component{
     constructor(props){
         super(props);

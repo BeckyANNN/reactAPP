@@ -7,8 +7,6 @@ import { get_one, get_update_detail, get_user_detail, get_one_detail,get_date_on
 import axios from "axios"
 
 import Foot from "../../components/foot"
-/* axios.defaults.baseURL = "http://39.106.19.127:3000" */
-/* axios.defaults.baseURL = "http://localhost:3000"; */
 
 import open from "../../../../assets/images/open.png"
 @connect(

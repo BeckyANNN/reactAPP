@@ -161,13 +161,14 @@ export default (state=initState,action)=>{
          /* case "get_find_collection":
         state.collection = action.json;
         return Object.assign({},state);
-        break;
-
+        break;*/
+        
+        //查询该用户的收藏列表
         case "find_one_collection":
         state.userCollection = action.json;
         return Object.assign({},state);
         break;
- */
+ 
 
          case "update_like":
         return Object.assign({},state);

@@ -20,7 +20,7 @@
     }
     section{
         width: 100%;
-        img{
+        /* .none{
             width: 100%;
             position: absolute;
             top: 0;
@@ -28,6 +28,44 @@
             bottom: 0;
             right: 0;
             margin: auto;
+        } */
+        .read-list{
+            dl{
+                margin-top: 30px;
+                dt{
+                    width: 120px;
+                    margin-left: 50px;
+                    float: left;
+                    img{
+                        width: 100%;
+
+                    }
+                }
+                dd{
+                    margin-left: 40px;
+                    float: left;
+                   
+                   /*  p:first-of-type{
+                        font-weight: 600;
+                        color: black;
+                    }*/
+                    p:nth-of-type(2){
+                        font-size: 30px;
+                        color: #333333;
+                        margin-top: 16px;
+                        font-weight: normal;
+                    } 
+                    p{
+                        font-size: 40px;
+                        color: black;
+                        margin-top: 16px;
+                        white-space: nowrap;  
+                        text-overflow:ellipsis; 
+                        overflow:hidden;
+                        font-weight: bold;
+                    }
+                }
+            }
         }
     }
 }

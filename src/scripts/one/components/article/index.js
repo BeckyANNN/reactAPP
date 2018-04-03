@@ -2,12 +2,11 @@ import React,{Component} from "react"
 import {Link,hashHistory} from "react-router"
 import {connect} from "react-redux"
 
-import {get_one} from "../../actions";
+import {find_one_collection} from "../../actions";
 
 import {Tabs} from "antd";
 const TabPane = Tabs.TabPane;
 
-import none from "../../../../assets/images/none.png";
 @connect(
     (state)=>({...state})
 )
@@ -18,32 +17,30 @@ export default class Article extends Component{
    componentWillMount(){
        const {dispatch} = this.props;
        var name = localStorage.getItem("name"); 
-       //dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
-       dispatch(get_one("/one",dispatch));
+       dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
    }
 
 
    
     render(){
-        const {one} = this.props;
+        const {one,userCollection} = this.props;
         var read = null;
         var lianzai = null;
         var wenda = null;
-        var none = <img src={none}/>;
-        if(one.length>0){
+        if(userCollection.length>0){
             read=(
                 <div className="read">
                     {
-                        one.map((item,i)=>{
-                            if(item.type=="阅读" && item.like_detail.collection){
+                        userCollection.map((item,i)=>{
+                            if(item.content_type=="1"){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
-                                        <span>{item.type}</span>
+                                        <i className="iconfont icon-wenzhang"></i>
                                         <p>{item.title}</p>
                                     </div>
-                                    <Link to={"/detail/"+item.id}>
-                                    <i className="iconfont icon-gengduo"></i>
+                                    <Link to={"/detail/"+item.item_id}>
+                                        <i className="iconfont icon-gengduo"></i>
                                     </Link>
                                 </div>
                                 )
@@ -53,18 +50,18 @@ export default class Article extends Component{
                 </div>
             );
             lianzai=(
-                <div className="read" style={{display:'none'}}>
+                <div className="read">
                     {
-                        one.map((item,i)=>{
-                            if(item.type=="连载" && item.like_detail.collection){
+                        userCollection.map((item,i)=>{
+                            if(item.content_type=="2"){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
-                                        <span>{item.type}</span>
+                                    <i className="iconfont icon-wenzhang"></i>
                                         <p>{item.title}</p>
                                     </div>
-                                    <Link to={"/detail/"+item.id}>
-                                     <i className="iconfont icon-gengduo"></i>
+                                    <Link to={"/detail/"+item.item_id}>
+                                        <i className="iconfont icon-gengduo"></i>
                                     </Link>
                                 </div>
                                 )
@@ -74,17 +71,17 @@ export default class Article extends Component{
                 </div>
             );
             wenda=(
-                <div className="read" style={{display:'none'}}>
+                <div className="read">
                     {
-                        one.map((item,i)=>{
-                            if(item.type=="问答" && item.like_detail.collection){
+                        userCollection.map((item,i)=>{
+                            if(item.content_type=="3"){
                                 return(
                                     <div className="read-list" key={i}> 
                                     <div className="left">
-                                        <span>{item.type}</span>
+                                        <i className="iconfont icon-wenzhang"></i>
                                         <p>{item.title}</p>
                                     </div>
-                                    <Link to={"/detail/"+item.id}>
+                                    <Link to={"/detail/"+item.item_id}>
                                      <i className="iconfont icon-gengduo"></i>
                                     </Link>
                                 </div>
@@ -110,8 +107,6 @@ export default class Article extends Component{
                         <TabPane tab="连载" key="2">{lianzai}</TabPane>
                         <TabPane tab="问答" key="3"> {wenda}</TabPane>
                     </Tabs>
-
-                   
                </section>
             </div>
         )

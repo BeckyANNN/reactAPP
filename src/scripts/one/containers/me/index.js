@@ -6,14 +6,16 @@ import axios from "axios"
 import touxiang from "../../../../assets/images/touxiang.jpg"
 import PicturesWall from "../../components/picturesWall";
 import {change_img} from "../../actions";
-axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://39.106.19.127:3000"
 import   "../../../utils/layer/mobile/layer.js"
 export default class Me extends Component{
     constructor(props){
         super(props);
         this.state={
             flag:true,
-            fileList:[]
+            fileList:[],
+            imgUrl:localStorage.img
         }
     }
     componentDidMount(){
@@ -22,11 +24,11 @@ export default class Me extends Component{
         }else{
             
         }
-        axios.get("/findUser?phone="+localStorage.name).then(res=>{
+        /* axios.get("/findUser?phone="+localStorage.name).then(res=>{
             this.setState({
                 imgUrl:res.data.img
             })
-        })
+        }) */
     }
     handleOk=()=>{
         this.setState({
@@ -40,6 +42,10 @@ export default class Me extends Component{
                 img:this.state.imgReUrl
             })
             setTimeout(()=>{
+                localStorage.setItem("img",this.state.imgReUrl);
+                this.setState({
+                    imgUrl:this.state.imgReUrl
+                })
                 location.reload(true)
             },1000)
             
@@ -63,7 +69,6 @@ export default class Me extends Component{
         const {imgUrl} = this.state;
         return(
             <div className="me" ref="me">
-                
                 <div className={localStorage.getItem("name")?"hide":"show showIn"}>
                     <div className="info">
                         <Link to="/login"/>
@@ -94,25 +99,27 @@ export default class Me extends Component{
                         <div className="list-main">
                             <div className="item">
                                 <h2>我的收藏</h2>
-                                <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/图文')}}>
+                                {/* <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/图文')}}>
                                     <i className="iconfont icon-tuwen"></i>
                                     <span>图文</span>
-                                </div>
-                                <div className="dlist" onClick={()=>{hashHistory.push('/article/文章')}}>
-                                    <i className="iconfont icon-wenzhang"></i>
-                                    <span>文章</span>
-                                </div>
-                                <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/音乐')}}>
-                                    <i className="iconfont icon-yinyue"></i>
-                                    <span>音乐</span>
-                                </div>
-                                <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/影视')}}>
-                                    <i className="iconfont icon-shipinbofangyingpian2"></i>
-                                    <span>影视</span>
-                                </div>
-                                <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/电台')}}>
-                                    <i className="iconfont icon-diantai"></i>
-                                    <span>电台</span>
+                                </div> */}
+                                <div className="item-main">
+                                    <div className="dlist" onClick={()=>{hashHistory.push('/article/文章')}}>
+                                        <i className="iconfont icon-wenzhang"></i>
+                                        <span>文章</span>
+                                    </div>
+                                    <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/音乐')}}>
+                                        <i className="iconfont icon-yinyue"></i>
+                                        <span>音乐</span>
+                                    </div>
+                                    <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/影视')}}>
+                                        <i className="iconfont icon-shipinbofangyingpian2"></i>
+                                        <span>影视</span>
+                                    </div>
+                                    <div className="dlist" onClick={()=>{hashHistory.push('/xiaoxi/电台')}}>
+                                        <i className="iconfont icon-diantai"></i>
+                                        <span>电台</span>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -129,7 +136,7 @@ export default class Me extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="list-main">
+                        {/* <div className="list-main">
                             <div className="list-item">
                                 <div className="left">
                                     <i className="iconfont icon-yinyue"></i>
@@ -140,7 +147,7 @@ export default class Me extends Component{
                                     <i className="iconfont icon-gengduo"></i>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <Foot/>

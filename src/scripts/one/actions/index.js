@@ -2,8 +2,8 @@ import axios from "axios";
 import {hashHistory} from "react-router"
 import {connect} from "react-redux"
 
-/* axios.defaults.baseURL = "http://39.106.19.127:3000"; */
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://39.106.19.127:3000";
+// axios.defaults.baseURL = "http://localhost:3000";
 export function get_one(url,dispatch){
     return axios.get(url)
         .then(res=>{
