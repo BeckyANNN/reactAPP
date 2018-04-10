@@ -5,9 +5,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 import   "../../../utils/layer/mobile/layer.js"
+import axios from "axios";
 
-//import {get_detail,get_comment_detail,get_one_item,get_one_detail,get_update_detail,get_one,get_insert_comment,get_update_collection,get_insert_collection} from "../../actions"
 import {get_detail,get_comment_detail,get_insert_comment,get_one_item,get_update_collection,get_insert_collection} from "../../actions";
+import { setTimeout } from "core-js/library/web/timers";
 @connect(
     (state)=>({...state})
 )
@@ -25,7 +26,20 @@ export default class Detail extends Component{
         dispatch(get_detail("/getDetail?id="+this.props.params.id,dispatch));
         dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
         dispatch(get_one_item("/oneDetail?id="+this.props.params.id+"&name="+name,dispatch));
+        this.getUser();
+        layer.open({
+            type: 2
+            ,content: '加载中',
+            time: 3
+          });
         //dispatch(find_one_collection("/oneCollection?username="+name,dispatch));
+    }
+    getUser=()=>{
+        axios.get("/findUser?phone="+localStorage.name).then(res=>{
+            this.setState({
+                img:res.data.img
+            })
+        })
     }
     //获取文章类型
     getArtType=(type)=>{
@@ -53,9 +67,7 @@ export default class Detail extends Component{
     send=()=>{
         this.setState({
             flag:true
-        })
-
-        
+        })  
     }
     
     //获取当前时间
@@ -69,20 +81,33 @@ export default class Detail extends Component{
         var s = date.getSeconds()<10?"0"+date.getSeconds():date.getSeconds();
         return h+"-"+m+"-"+d+" "+H+":"+M+":"+s;
     }
+    //评论
     msg=()=>{
         const {dispatch,detailList} = this.props;
         var msg = this.refs.message.value;
         var username = localStorage.getItem("name");
         if(msg.length<=500){
-            dispatch(get_insert_comment("/insertDetail?content="+msg+"&name="+username+"&id="+this.props.params.id+"&inputDate="+this.getNow()+"&updateDate="+this.getNow(),dispatch));
+            dispatch(get_insert_comment("/insertDetail",{
+               content:msg,
+                name:username,
+                id:this.props.params.id,
+                inputDate:this.getNow(),
+                updateDate:this.getNow(),
+                img:this.state.img
+            },dispatch));
             dispatch(get_detail("/getDetail?id="+this.props.params.id,dispatch)); 
             dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
-            location.reload(true)
-            layer.open({
-                content: '评论成功'
-                ,skin: 'msg'
-                ,time: 2 //2秒后自动关闭
-              });
+            //location.reload(true)
+            setTimeout(()=>{
+                layer.open({
+                    content: '评论成功'
+                    ,skin: 'msg'
+                    ,time: 3 //2秒后自动关闭
+                  });
+            },1000)
+            setTimeout(()=>{
+                location.reload(true)
+            },2000)
             this.setState({
                         flag:false
                     })
@@ -124,9 +149,7 @@ export default class Detail extends Component{
     shoucang=(collection)=>{
         const {dispatch} = this.props;
         var name = localStorage.getItem("name");
-        console.log(collection)
         collection = !collection;
-        console.log(collection)
         if(name){
             if(Number(collection)){
                 this.refs.shoucang.style.color = "red";
@@ -153,24 +176,20 @@ export default class Detail extends Component{
     render(){
         const {detailList,commentList,oneItem } = this.props;
         const {name} = this.state;
-        console.log(oneItem);
         var head = null;
         var content = null;
         var title = null;
         var author = null;
         var comment = null;
-        //var pinglun = null;
         var shoucang = null;
+        console.log(detailList)
          if(detailList){
             head=this.getArtType(detailList[0].category);
             if(this.refs.cont){
                 this.refs.cont.innerHTML = detailList[0].html_content;       
             } 
                 
-            /* shoucang = <i className="iconfont icon-biaoqian" 
-                        style={{color:detailList[0].like_detail.collection||''}}
-                        onClick={()=>{this.shoucang(detailList[0].id,detailList[0].like_detail.collection)}} 
-                        ref="shoucang"></i> */
+           
         } 
         if(oneItem.length>0){
             shoucang = <i className="iconfont icon-biaoqian" 

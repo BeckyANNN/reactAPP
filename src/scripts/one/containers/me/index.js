@@ -6,8 +6,7 @@ import axios from "axios"
 import touxiang from "../../../../assets/images/touxiang.jpg"
 import PicturesWall from "../../components/picturesWall";
 import {change_img} from "../../actions";
-// axios.defaults.baseURL = "http://localhost:3000";
-axios.defaults.baseURL = "http://39.106.19.127:3000"
+
 import   "../../../utils/layer/mobile/layer.js"
 export default class Me extends Component{
     constructor(props){

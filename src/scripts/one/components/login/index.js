@@ -7,8 +7,7 @@ import {Alert} from "antd"
 //import {get_insert_detail} from "../../actions";
 
 import {get_back} from "../../actions";
-axios.defaults.baseURL = "http://39.106.19.127:3000"
-// axios.defaults.baseURL = "http://localhost:3000";
+
 @connect(
     state=>state
 )

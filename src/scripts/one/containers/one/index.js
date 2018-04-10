@@ -252,7 +252,7 @@ export default class One extends Component {
                 </div>
             )
         }
-        if(coverList.length>0){
+        /* if(coverList.length>0){
             cover = (
                 <div className="cover" style={{display:openImg?"none":"block"}}>
                     {
@@ -267,7 +267,7 @@ export default class One extends Component {
                     }
                 </div>
             )
-        }
+        } */
         return (
 
             <div className="one">
@@ -275,7 +275,7 @@ export default class One extends Component {
                     <p>
                         <span>{this.getNow().split("/")[2]}</span>
                         <span>{`${this.changeDate(this.getNow())}.${this.getNow().split("/")[0]}`}</span>
-                        <img src={open} ref="openImg" className="" onClick={()=>{
+                        {/* <img src={open} ref="openImg" className="" onClick={()=>{
                             
                             this.setState({
                                 openImg:!(this.state.openImg)
@@ -285,7 +285,7 @@ export default class One extends Component {
                             }else{
                                 this.refs.openImg.className="";
                             }
-                        }}/>
+                        }}/> */}
                     </p>
                     {weather} 
                 </header>
@@ -294,7 +294,7 @@ export default class One extends Component {
 
                     
                     {html}
-                    {cover}
+                    {/* {cover} */}
                 </div>
 
                 <Foot />

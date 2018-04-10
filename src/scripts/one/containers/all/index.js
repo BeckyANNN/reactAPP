@@ -74,13 +74,13 @@ export default class All extends Component{
                        <div className="nav-main">
                         <h2>分类导航</h2>
                             <div className="pic">
-                                <Link to="info"><img src={pic1}/></Link>
-                                <img src={pic2}/>
-                                <img src={pic7}/>
-                                <img src={pic3}/>
-                                <img src={pic4}/>
-                                <img src={pic5}/>
-                                <img src={pic6}/>
+                                <Link to={{pathname:"cover",state:{type:0}}}><img src={pic1}/></Link>
+                                <Link to={{pathname:"cover",state:{type:3}}}><img src={pic2}/></Link>
+                                <Link to={{pathname:"cover",state:{type:1}}}><img src={pic7}/></Link>
+                                <Link to={{pathname:"cover",state:{type:2}}}><img src={pic3}/></Link>
+                                <Link to={{pathname:"cover",state:{type:5}}}><img src={pic4}/></Link>
+                                <Link to={{pathname:"cover",state:{type:4}}}><img src={pic5}/></Link>
+                                <Link to={{pathname:"cover",state:{type:8}}}><img src={pic6}/></Link>
                             </div>
                        </div>
                     </div>

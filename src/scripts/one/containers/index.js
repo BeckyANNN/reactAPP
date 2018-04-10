@@ -17,7 +17,8 @@ import Message from "../components/message"
 import Xiaoxi from "../components/xiaoxi"
 import Shezhi from "../components/shezhi"
 import Article from "../components/article"
-import Subject from "./subject"
+import Subject from "./subject";
+import Cover from "../components/cover"
 export default class Layout extends Component{
     render(){
         return(
@@ -39,6 +40,7 @@ export default class Layout extends Component{
                     <Route path="xiaoxi/:type" component={Xiaoxi}/>
                     <Route path="shezhi" component={Shezhi}/>
                     <Route path="article/:type" component={Article}/>
+                    <Route path="cover" component={Cover}/>
                 </Route>
             </Router>
         )

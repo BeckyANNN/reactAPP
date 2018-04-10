@@ -17,7 +17,6 @@ export default class Xiaoxi extends Component{
 
     render(){
         const {userCollection} = this.props;
-        console.log(userCollection);
         let cont = null;
         let cont2 = <img src={none}/>
         if(userCollection.length>0){
@@ -26,7 +25,6 @@ export default class Xiaoxi extends Component{
                     {
                         userCollection.map((item,i)=>{
                             if(item.content_type=="4"&&this.props.params.type=="音乐"){
-                                console.log(item)
                                 return(
                                     <div className="read-list" key={i}> 
                                         <Link to={"/detail/"+item.item_id}>
@@ -43,30 +41,30 @@ export default class Xiaoxi extends Component{
                             }else if(item.content_type=="5"&&this.props.params.type=="影视"){
                                 return(
                                     <div className="read-list" key={i}> 
-                                    <Link to={"/detail/"+item.item_id}>
-                                        <dl>
-                                            <dt><img src={item.cover}/></dt>
-                                            <dd>
-                                                <p>{item.title}</p>
-                                                <p>{item.author.user_name}</p>
-                                            </dd>
-                                        </dl>
-                                    </Link>
+                                        <Link to={"/detail/"+item.item_id}>
+                                            <dl>
+                                                <dt><img src={item.cover}/></dt>
+                                                <dd>
+                                                    <p>{item.title}</p>
+                                                    <p>{item.author.user_name}</p>
+                                                </dd>
+                                            </dl>
+                                        </Link>
                                     </div>
                                 )
                             }else if(item.content_type=="6"&&this.props.params.type=="电台"){
                                 return(
                                     <div className="read-list" key={i}> 
-                                    <Link to={"/detail/"+item.item_id}>
-                                    <dl>
-                                            <dt><img src={item.cover}/></dt>
-                                            <dd>
-                                                <p>{item.title}</p>
-                                                <p>{item.author.user_name}</p>
-                                            </dd>
-                                        </dl>
-                                    </Link>
-                                </div>
+                                        <Link to={"/detail/"+item.item_id}>
+                                        <dl>
+                                                <dt><img src={item.cover}/></dt>
+                                                <dd>
+                                                    <p>{item.title}</p>
+                                                    <p>{item.author.user_name}</p>
+                                                </dd>
+                                            </dl>
+                                        </Link>
+                                    </div>
                                 )
                             }
                         })
@@ -74,7 +72,6 @@ export default class Xiaoxi extends Component{
                 </div>
             );
         }
-        console.log(cont)
         return(
             <div className="xiaoxi">
                <header>

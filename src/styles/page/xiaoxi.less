@@ -20,20 +20,18 @@
     }
     section{
         width: 100%;
-        /* .none{
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            margin: auto;
-        } */
         .read-list{
+            .top:first-of-type{
+                margin-top: 180px;
+            }
             dl{
+                width: 100%;
                 margin-top: 30px;
+                overflow: hidden;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #ddd;
                 dt{
-                    width: 120px;
+                    width: 15%;
                     margin-left: 50px;
                     float: left;
                     img{
@@ -42,13 +40,11 @@
                     }
                 }
                 dd{
+                    width: 75%;
                     margin-left: 40px;
                     float: left;
                    
-                   /*  p:first-of-type{
-                        font-weight: 600;
-                        color: black;
-                    }*/
+                  
                     p:nth-of-type(2){
                         font-size: 30px;
                         color: #333333;

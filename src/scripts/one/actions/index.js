@@ -55,6 +55,7 @@ export function insert_like(url,dispatch){
             return dispatch({type:"insert_like",json})
         })
 }
+//获取轮播图
 export function get_banner(url,dispatch){
     return axios.get(url)
         .then(res=>{
@@ -171,9 +172,9 @@ export function get_all_detail(url,dispatch){
 }
 
 //插入评论
-export function get_insert_comment(url,dispatch){
+export function get_insert_comment(url,data,dispatch){
     
-    return axios.get(url)
+    return axios.post(url,data)
         .then(res=>{
             return res.data;
 

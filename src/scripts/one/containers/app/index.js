@@ -10,26 +10,21 @@ export default class App extends Component{
    
     render(){
         return(
-            <div className="moveIn app" ref="app">
             <ReactCSSTransitionGroup
-                transitionName = {
-                    {
-                        enter: 'enter',
-                        leave: 'leave',
-                    }
-                }
-                transitionLeave={true}
-                transitionEnter={true}
-                transitionLeaveTimeout = {800}
-                transitionEnterTimeout = {800}
+                transitionName = "transitionWrapper"
+                component="div"
+                className="transitionWrapper"
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={300}
                 >
-              
-                    {this.props.children}
-                </ReactCSSTransitionGroup>
-           
-           
-        </div>
-           
+                <div className="moveIn app"
+                    key={this.props.location.pathname}
+                     style={{position:"absolute", width: "100%"}}
+                >
+                {this.props.children}
+                </div>
+                    
+            </ReactCSSTransitionGroup>  
         )
     }
 }

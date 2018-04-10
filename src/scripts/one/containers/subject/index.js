@@ -2,11 +2,12 @@ import React,{Component} from "react"
 import {connect} from "react-redux"
 import {Link,hashHistory} from "react-router"
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
+import axios from "axios"
 
 import   "../../../utils/layer/mobile/layer.js"
-
+import {Spin} from "antd";
 import {get_all_detail,get_comment_detail,get_all,get_insert_comment} from "../../actions";
+import { setTimeout } from "core-js/library/web/timers";
 @connect(
     (state)=>({...state})
 )
@@ -23,6 +24,12 @@ export default class Subject extends Component{
         dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
         dispatch(get_all_detail("/allInfo?id="+this.props.params.id,dispatch));
         dispatch(get_all("/all",dispatch));
+        this.getUser();
+        layer.open({
+            type: 2
+            ,content: '加载中',
+            time: 5
+          });
     }
     getArtType=(type)=>{
         switch(type){
@@ -48,6 +55,14 @@ export default class Subject extends Component{
                 return "电台";
                 break;
         }
+    }
+
+    getUser=()=>{
+        axios.get("/findUser?phone="+localStorage.name).then(res=>{
+            this.setState({
+                img:res.data.img
+            })
+        })
     }
    //获取当前时间
    getNow=()=>{
@@ -75,15 +90,24 @@ export default class Subject extends Component{
         var msg = this.refs.message.value;
         var username = localStorage.getItem("name");
         if(msg.length<=500){
-            dispatch(get_insert_comment("/insertDetail?content="+msg+"&name="+username+"&id="+this.props.params.id+"&inputDate="+this.getNow()+"&updateDate="+this.getNow(),dispatch));
-            dispatch(get_all_detail("/allInfo?id="+this.props.params.id,dispatch));
-            dispatch(get_comment_detail("/detailInfo?id="+this.props.params.id,dispatch));
-            location.reload(true)
+            dispatch(get_insert_comment("/insertDetail",{
+                content:msg,
+                 name:username,
+                 id:this.props.params.id,
+                 inputDate:this.getNow(),
+                 updateDate:this.getNow(),
+                 img:this.state.img
+             },dispatch));
+            
+            
             layer.open({
                 content: '评论成功'
                 ,skin: 'msg'
-                ,time: 2 //2秒后自动关闭
+                ,time: 3 //3秒后自动关闭
               });
+            setTimeout(()=>{
+                location.reload(true)
+            },1000)
             this.setState({
                         flag:false
                     })
